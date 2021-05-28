@@ -8,6 +8,7 @@ beacon.register_effect("fly", {
 	on_apply = function(player, name)
 		local privs = minetest.get_player_privs(name)
 		if privs.privs then return end -- don't effect admins
+		if privs.player_fly then return end -- don't effect people with player_fly enabled
 
 		if beacon.has_player_monoids then
 			player_monoids.fly:add_change(player, true, "beacon_fly")
@@ -19,6 +20,7 @@ beacon.register_effect("fly", {
 	on_remove = function(player, name)
 		local privs = minetest.get_player_privs(name)
 		if privs.privs then return end -- don't effect admins
+		if privs.player_fly then return end -- don't effect people with player_fly enabled
 
 		if beacon.has_player_monoids then
 			player_monoids.fly:del_change(player, "beacon_fly")
